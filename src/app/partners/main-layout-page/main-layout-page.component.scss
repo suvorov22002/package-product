@@ -1,0 +1,39 @@
+.page-grid {
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 50px 1fr;
+    &>nav {
+        background-color: #000;
+        .navbar-inside {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 85%;
+            margin: 0 auto;
+            color: #fff;
+            .user-avatar {
+                display: flex;
+                align-items: center;
+                flex-direction: row-reverse;
+                &>.icon-text {
+                    height: 38px;
+                    width: 38px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 4px;
+                    margin-left: 0.8rem;
+                    font-size: 0.7rem;
+                    font-weight: 500;
+                    background-color: rgb(46, 46, 46);
+                }
+                &>.fullname {
+                    font-size: 0.8rem;
+                    color: #fafafabd;
+                }
+            }
+        }
+    }
+    &>main {}
+}

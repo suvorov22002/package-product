@@ -1,0 +1,147 @@
+<div style="margin-top: 1rem;">
+    <section class="section-form-group" style="margin-bottom: 1rem;">
+        <h2 class="title">Elements de recherche</h2>
+        <form [formGroup]="filterFormGroup" class="transaction-filter-form">
+            <div class="inputs-group">
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>ID Marchand</mat-label>
+                    <input formControlName="idMarchand" type="text" matInput>
+                </mat-form-field>
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Nom du marchand</mat-label>
+                    <input formControlName="nomMarchand" type="text" matInput>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Numéro evenement</mat-label>
+                    <input formControlName="eveid" type="text" matInput>
+                </mat-form-field>
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Du</mat-label>
+                    <input formControlName="validfrom" matInput [matDatepicker]="startDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                    <mat-datepicker #startDate></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Au</mat-label>
+                    <input formControlName="validto" matInput [matDatepicker]="endDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                    <mat-datepicker #endDate></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Statut</mat-label>
+                    <mat-select formControlName="statusTrans">
+                        <mat-option [value]="''">{{'TOUS'}}</mat-option>
+                        <mat-option *ngFor="let value of transactionsStatus" [value]="value">{{value}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Agence</mat-label>
+                    <input formControlName="ageCaisse" type="text" matInput>
+                </mat-form-field>
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Utilisateur</mat-label>
+                    <input formControlName="userCaisse" type="text" matInput>
+                </mat-form-field>
+
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <div style="display: flex">
+                    <button [disabled]="isFiltering" (click)="onFilterTransactionsWithCriteria()" mat-flat-button color="primary">Rechercher</button>
+                    <button (click)="onDownloadReporting()" mat-stroked-button style="margin-left: 1rem;">Tirer le reporting des transactions</button>
+                </div>
+            <!--   <button (click)="onLoadTfj()" mat-raised-button style="margin-left: 1rem;">Déclencher le TFJ</button> --> 
+            </div>
+        </form>
+    </section>
+    <mat-divider vertical="false" class="margin: 0.8rem auto"></mat-divider>
+
+    <div style="margin-top: 1rem;">
+        <section class="section-form-group">
+            <h2 class="title">Liste des transactions</h2>
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Filtrer</mat-label>
+                <input type="text" matInput (keyup)="applySearchFilter($event)" #filterInput>
+            </mat-form-field>
+            <table id="transactions-table" mat-table [dataSource]="dataSource" class="mat-elevation-z0 w-100">
+
+                <ng-container matColumnDef="validfrom">
+                    <th mat-header-cell *matHeaderCellDef> Date paiement </th>
+                    <td mat-cell *matCellDef="let element"> {{element.validfrom | date}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nomMarchand">
+                    <th mat-header-cell *matHeaderCellDef> Nom marchant </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nomMarchand}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="reason">
+                    <th mat-header-cell *matHeaderCellDef> OPE </th>
+                    <td mat-cell *matCellDef="let element"> {{element.typeOperation | emptyOrNullNa}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="referenceBill">
+                    <th mat-header-cell *matHeaderCellDef> Reference </th>
+                    <td mat-cell *matCellDef="let element"> {{element.eveid | emptyOrNullNa}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef> Montant </th>
+                    <td mat-cell *matCellDef="let element"> {{element.amount| moneyFormat}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="statusTrans">
+                    <th mat-header-cell *matHeaderCellDef> Statut </th>
+                    <td mat-cell *matCellDef="let element"> {{element.statusTrans | removeUnderscore}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="referenceOperator">
+                    <th mat-header-cell *matHeaderCellDef> ID marchand </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idMarchand}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="divisionAdministratif">
+                    <th mat-header-cell *matHeaderCellDef> Compte credité </th>
+                    <td mat-cell *matCellDef="let element"> {{element.accountCredit}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="libelleAgence">
+                    <th mat-header-cell *matHeaderCellDef> Uti </th>
+                    <td mat-cell *matCellDef="let element"> {{element.userCaisse
+                    }} </td>
+                </ng-container>
+
+                
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Actions </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div style="display: flex;">
+                            <button *ngIf="element.statusTrans == 'PROCESSING' || element.statusTrans == 'VALID' || element.statusTrans == 'TO_CONFIRM'" class="mat-elevation-z0 button button5" (click)="onValidateTransaction(element)" mat-stroked-button color="primary">
+                                <img src="assets/imgs/rappeler.png" width="16" height="16" alt="Valider" />
+                            </button>
+                            <button *ngIf="element.reportdata && element.statusTrans == 'SUCCESS'"  class="mat-elevation-z0 button button5" (click)="onViewReceipt(element)" mat-stroked-button>
+                                <img src="assets/imgs/Printer-icon.png" width="16" height="16" alt="Imprimer" /> 
+                            </button>
+                            <button *ngIf="element.statusTrans != 'SUCCESS'"  class="mat-elevation-z0 button button5" (click)="onDelete(element)" mat-stroked-button>
+                                <img src="assets/imgs/DeleteRed16x.png" width="16" height="16" alt="Supprimer" /> 
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">Aucun resultat correspondant à la recherche : "{{filterInput.value}}"</td>
+                </tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+            </mat-paginator>
+        </section>
+
+    </div>
+   
+</div>

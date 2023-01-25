@@ -1,0 +1,93 @@
+<div class="main-content">
+    <form id="form-versement" [formGroup]="versementFormGroup" style="margin-bottom: 2rem;">
+
+        <div role="main" style="background-color: #fff;">
+            <h2 role="header">Versement à la caisse</h2>
+            <section class="section-form-group" style="margin-top: 2rem">
+                <h2 class="title">Identification du marchand</h2>
+                <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr auto ; ">
+                    <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                        <mat-label>ID Marchand</mat-label>
+                        <input formControlName="referenceOperator" type="text" matInput>
+                    </mat-form-field>
+                    <div style="display: flex">
+                        <button (click)="onFindMerchantByReference($event)" style="align-self: flex-start;" mat-stroked-button color="warn">Verifier</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-form-group" style="margin-top: 2rem">
+                <h2 class="title">Informations du client</h2>
+                <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr; ">
+                    <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                        <mat-label>Nom du marchand</mat-label>
+                        <input formControlName="nomOperator" type="text" [readonly]="true" matInput>
+                    </mat-form-field>
+                </div>
+                <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr 1fr; ">
+                    <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                        <mat-label>Identité Marchand</mat-label>
+                        <input formControlName="activity" type="text" [readonly]="true" matInput>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                        <mat-label>Numero de compte</mat-label>
+                        <input formControlName="numeroCompte" type="text" [readonly]="true" matInput>
+                    </mat-form-field>
+                </div>
+            </section>
+
+            <section class="section-form-group" style="margin-top: 2rem">
+                <h2 class="title">Details de opération</h2>
+           
+                <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr 1fr 1fr; ">
+                    <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                        <mat-label>Type Opération</mat-label>
+                        <mat-select formControlName="categorieJustificatif">
+                            <mat-option *ngFor="let item of filteredTypes" [value]="item.code">
+                                {{item.value}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                        <mat-label>Partie versante</mat-label>
+                        <input formControlName="partieVersante" type="text" matInput>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                        <mat-label>Téléphone</mat-label>
+                        <input formControlName="telephone" type="text" matInput>
+                    </mat-form-field>
+                </div>
+
+                <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr 1fr 1fr; ">
+                    <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                        <mat-label>Montant à verser</mat-label>
+                        <input (change)="onMontantChanged()" formControlName="montantVerse" type="text" matInput>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                        <mat-label>Montant percu</mat-label>
+                        <input (change)="onMontantChanged()" formControlName="montantPercu" type="text" matInput>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100" >
+                        <mat-label>Montant à rembourser</mat-label>
+                        <input formControlName="montantRemb" value="0" type="text" [readonly]="true" [style.color]="'red'" matInput>
+                    </mat-form-field>
+                </div>
+           
+                <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr ; ">
+                    <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                        <mat-label>Motif versement</mat-label>
+                        <textarea formControlName="motif" value="0" type="text" matInput style="resize: none;"></textarea>
+                    </mat-form-field>
+
+                </div>
+           
+
+
+                <button [disabled]="!versementFormGroup.valid" (click)="onInitVersement()" style="align-self: start; margin-bottom: 1rem;" mat-flat-button color="warn">Initier le versement</button>
+            </section>
+        </div>
+        <div class="loader-wrapper" *ngIf="versementIsPending">
+            <span class="circle-loader"></span>
+        </div>
+    </form>
+</div>

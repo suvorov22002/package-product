@@ -1,0 +1,21 @@
+.partner-dashboard {
+    height: 100vh;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    &>aside {
+        background-color: #fff;
+        .title-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-weight: 500;
+        }
+        &>header {
+            #app-title {
+                font-size: 1rem;
+            }
+        }
+    }
+}

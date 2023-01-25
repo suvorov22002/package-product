@@ -1,0 +1,31 @@
+export enum OperatorStatus{
+    ACTIF = "ACTIF",
+    WAITING = "WAITING",
+    SUSPENDU = "SUSPENDU",
+    CANCEL = "CANCEL"
+}
+
+export enum TransactionStatus{
+    //VALID = "VALID",
+    TO_CONFIRM = "TO_CONFIRM",
+    INITIATE = "INITIATE",
+    CANCEL = "CANCEL",
+    ERROR = "ERROR",
+    PROCESSING = "PROCESSING",
+    //FAILED = "FAILED",
+    INVALID = "INVALID",
+    SUCCESS = "SUCCESS",
+    //REVERSED = "REVERSED",
+    
+    //ENCAISSEE = "ENCAISSEE",
+    //EBANKING = "EBANKING",
+    
+}
+
+export enum TransportType{
+    TRANSPORT_AERIEN = "TRANSPORT_AERIEN",
+    TRANSPORT_MARITIME = "TRANSPORT_MARITIME",
+    TRANSPORT_ROUTIER = "TRANSPORT_ROUTIER"
+}
+
+

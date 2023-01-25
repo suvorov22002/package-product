@@ -1,0 +1,35 @@
+<div class="app-scaffold">
+    <mat-drawer-container class="example-container" autosize>
+        <mat-drawer #drawer mode="side" opened="true">
+            <div class="app-side-bar">
+                <header>
+                    <a routerLink="/" style="text-decoration: none;">
+                        <h2 class="app-title" style="font-size: 0.8rem;">DIGITAL <span class="primary-color">&nbsp; FIRST</span> ({{partnersService.curPartner.partname}})</h2>
+                    </a>
+                </header>
+                <ul class="app-nav --vertical" style="overflow-y: auto; overflow-x: none; margin-top: 3rem;">
+                    <li class="item">
+                        <a routerLink="/trustpay-dashboard/souscription" routerLinkActive="active" class="link">Abonnement</a>
+                    </li>
+                    <li class="item">
+                        <a routerLink="/trustpay-dashboard/transactions" routerLinkActive="active" class="link">Transactions</a>
+                    </li>
+                <!--    <li class="item">
+                        <a routerLink="/trustpay-dashboard/marchands" routerLinkActive="active" class="link">Listes des marchands</a>
+                    </li>-->
+                </ul>
+                <footer style="border-top: 1px solid #eee; padding: 1rem; display: flex; flex-direction: column;">
+                    <button mat-stroked-button color="warn">
+                        <a routerLink="/partners-dashboard" routerLinkActive="active" class="menu-item-link">Me déconnecter</a>
+                        </button>
+                </footer>
+            </div>
+        </mat-drawer>
+
+        <div style="height: 100vh; ">
+            <router-outlet></router-outlet>
+        </div>
+
+    </mat-drawer-container>
+
+</div>

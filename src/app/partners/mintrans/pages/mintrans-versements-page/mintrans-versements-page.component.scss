@@ -1,0 +1,27 @@
+.main-content {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+    #form-versement {
+        align-self: flex-start;
+        margin-top: 2rem;
+        position: relative;
+        width: 850px;
+        border-radius: 1rem;
+        background-color: #fff;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        box-shadow: 0 4px 24px rgba($color: #000, $alpha: 0.05), 0 12px 4px -8px rgba($color: #000, $alpha: 0.06);
+        h2[role="header"] {
+            padding: 1rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: rgb(53, 53, 53);
+            border-bottom: 1px solid #eee;
+        }
+        &>[role="main"] {
+            padding: 0 1rem;
+        }
+    }
+}

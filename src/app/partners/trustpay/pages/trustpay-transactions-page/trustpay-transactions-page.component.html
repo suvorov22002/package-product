@@ -1,0 +1,27 @@
+<div class="main-content" style="overflow: auto; position: relative;">
+    <section class="section-group">
+        <h2 role="header" class="title">Gestion des transactions</h2>
+
+        <div role="main" style="padding: 1rem;">
+            <mat-tab-group animationDuration="0ms">
+                <mat-tab label="Consultation des transactions">
+                    <ng-template mat-tab-label>
+                        Liste des transactions
+                    </ng-template>
+                    <app-trustpay-all-transactions (loadTransactionReceiptEvent)="onLoadTransactionReceipt($event)" (filterTransactionEvent)="onFilterTransactionsWithCriteria($event)"
+                        [isFiltering]="isFilteringAllTransactions" [transactions$]="allTransactions$"></app-trustpay-all-transactions>
+                </mat-tab>
+                <mat-tab label="Ventilation transactions">
+                    <ng-template mat-tab-label>
+                        Ventilation transactions
+                    </ng-template>
+                    <app-trustpay-ventilation-transactions >
+                    </app-trustpay-ventilation-transactions>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </section>
+    <div class="loader-wrapper" *ngIf="tfjIsPending">
+        <span class="circle-loader"></span>
+    </div>
+</div>

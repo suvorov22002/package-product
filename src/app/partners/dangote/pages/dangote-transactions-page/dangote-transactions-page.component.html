@@ -1,0 +1,38 @@
+<div class="main-content" style="overflow: auto; position: relative;">
+    <section class="section-group">
+        <h2 role="header" class="title">Consultation des transactions</h2>
+
+        <div role="main" style="padding: 1rem;">
+            <mat-tab-group animationDuration="0ms">
+                <mat-tab label="Liste des transactions">
+                    <ng-template mat-tab-label>
+                        Liste des transactions
+                    </ng-template>
+                    <app-dangote-all-transactions (loadTfjEvent)="onLoadTfj()" (loadTransactionReceiptEvent)="onLoadTransactionReceipt($event)" (filterTransactionEvent)="onFilterTransactionsWithCriteria($event)" (validateTransactionEvent)="onInitiateTransactionValidation($event)"
+                        [isFiltering]="isFilteringAllTransactions" [transactions$]="allTransactions$"></app-dangote-all-transactions>
+                </mat-tab>
+                <mat-tab label="Transactions(en attente)">
+                    <ng-template mat-tab-label>
+                        Transactions en attente ({{pendingTransactionsLength}})
+                    </ng-template>
+                    <app-dangote-pending-transactions (loadTransactionReceiptEvent)="onLoadTransactionReceipt($event)" [transactions$]="pendingTransactions$" (validateTransactionEvent)="onInitiateTransactionValidation($event)">
+                    </app-dangote-pending-transactions>
+                </mat-tab>
+                <mat-tab label="Mes Opérations">
+                    <ng-template mat-tab-label>
+                        Mes Opérations
+                    </ng-template>
+                    <app-dangote-my-transactions (loadTransactionReceiptEvent)="onLoadTransactionReceipt($event)" (filterMyTransactionEvent)="onFilterMyTransactionsWithCriteria($event)" (validateTransactionEvent)="onInitiateTransactionValidation($event)"
+                    [transactions$]="myTransactions$">
+                    </app-dangote-my-transactions>
+                </mat-tab>
+
+            </mat-tab-group>
+
+
+        </div>
+    </section>
+    <div class="loader-wrapper" *ngIf="tfjIsPending">
+        <span class="circle-loader"></span>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div style="position: relative">
+    <h3 style="margin-bottom: 1rem">Créer un nouveau partenaire</h3>
+    <form [formGroup]="formGroup">
+        <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr 1fr; ">
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Nom du partenaire</mat-label>
+                <input formControlName="partname" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Code du partenaire</mat-label>
+                <input formControlName="partcode" type="text" matInput>
+            </mat-form-field>
+        </div>
+        <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr 1fr; margin-bottom: 1rem;">
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>N° de compte</mat-label>
+                <input formControlName="account" type="text" matInput>
+                <mat-hint style="display: flex; margin-bottom: 0.8rem; font-size: 0.8rem !important;">Format: xxxx-xxxxxxxxxxx-xx</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>N° de téléphone(s)</mat-label>
+                <input formControlName="phones" type="text" matInput>
+            </mat-form-field>
+
+        </div>
+        <div class="display: flex; margin-top: 2rem">
+            <mat-checkbox formControlName="comptabilisationTransit" (change)="onUpdateCompteTransit($event)">
+                Utiliser un compte de versement ?
+            </mat-checkbox>
+        </div>
+        <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr; margin-top: 0.8rem;">
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>N° Compte versement</mat-label>
+                <input formControlName="partnerNcpVersement" type="text" matInput>
+            </mat-form-field>
+        </div>
+        <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr; margin-top: 0.8rem;">
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Email(s)</mat-label>
+                <input formControlName="emails" type="text" matInput>
+            </mat-form-field>
+        </div>
+
+        <div class="display: flex; margin: 2rem 0; ">
+            <mat-checkbox formControlName="kycPartner">
+                Le partenaire autorise t'il un KYC ?
+            </mat-checkbox>
+        </div>
+
+        <h4 class="text-blueGray-700 text-xs font-bold title-imp">Paramètres de connexion</h4> <br>
+        
+        <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr 1fr; ">
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Hôte</mat-label>
+                <input formControlName="host" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Port</mat-label>
+                <input formControlName="port" type="text" matInput>
+            </mat-form-field>
+        </div>
+
+        <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr 1fr; ">
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Protocole</mat-label>
+                <input formControlName="protocole" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Services</mat-label>
+                <input formControlName="path" type="text" matInput>
+            </mat-form-field>
+        </div>
+
+
+
+        <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
+            <button (click)="onCreatePartner()" mat-flat-button color="primary">Créer le partenaire</button>
+            <button mat-stroked-button [mat-dialog-close]>Quitter</button>
+        </div>
+    </form>
+
+    <div class="loader-wrapper" *ngIf="isCreatingPartner">
+        <span class="circle-loader"></span>
+    </div>
+
+</div>

@@ -1,0 +1,65 @@
+<h3 style="margin-bottom: 1rem">Recapitulatif du versement</h3>
+<section id="event-code">
+    <div>
+        <span>Code Evènement</span>
+        <span>{{cashIn.eveid}}</span>
+    </div>
+</section>
+<div class="recap-container">
+    <div class="recap-item">
+        <span class="key">Statut de la transaction</span>
+        <span>:</span>
+        <span class="value">{{cashIn.statusTrans}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Date de transaction</span>
+        <span>:</span>
+        <span class="value">{{cashIn.validfrom | date}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Agence</span>
+        <span>:</span>
+        <span class="value">{{cashIn.ageCaisse}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Caissière</span>
+        <span>:</span>
+        <span class="value">{{cashIn.userCaisse}}</span>
+    </div>
+
+    <div class="recap-item">
+        <span class="key">Nom opérateur</span>
+        <span>:</span>
+        <span class="value">{{cashIn.nomOperator}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Ref opérateur</span>
+        <span>:</span>
+        <span class="value">{{cashIn.referenceOperator}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Segment</span>
+        <span>:</span>
+        <span class="value">{{cashIn.segment | removeUnderscore}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Libellé</span>
+        <span>:</span>
+        <span class="value">{{cashIn.reason}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Partie versante</span>
+        <span>:</span>
+        <span class="value">{{cashIn.partieVersante}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Montant à payer</span>
+        <span>:</span>
+        <span class="value">{{cashIn.amount! | moneyFormat}} FCFA</span>
+    </div>
+
+</div>
+
+<div style="display: flex; justify-content: space-between;">
+    <button mat-stroked-button [mat-dialog-close]>Quitter</button>
+</div>

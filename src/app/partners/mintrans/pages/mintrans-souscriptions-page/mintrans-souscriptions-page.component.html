@@ -1,0 +1,258 @@
+<!-- <div class="main-content">
+    <section class="section-group" style="margin: 0; background-color: #fff0;">
+        <h2 role="header" class="title">Consultation des souscriptions</h2>
+
+        <div role="main" style="padding: 1rem;">
+            <div>
+                <section class="section-form-group" style="margin-bottom: 1rem;">
+                    <h2 class="title">Elements de recherche</h2>
+                    <form [formGroup]="filterFormGroup" class="subscription-filter-form">
+                        <div class="inputs-group">
+                            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                                <mat-label>ID Marchant</mat-label>
+                                <input formControlName="customerReferencePartner" type="text" matInput>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                                <mat-label>Nom Marchant</mat-label>
+                                <input formControlName="customerNamePartner" type="text" matInput>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                                <mat-label>Statut</mat-label>
+                                <mat-select formControlName="operatorStatus">
+                                    <mat-option [value]="''">{{'TOUS'}}</mat-option>
+                                    <mat-option *ngFor="let value of operatorsStatus" [value]="value">{{value}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                                <mat-label>Du</mat-label>
+                                <input formControlName="validfrom" matInput [matDatepicker]="startDate">
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                                <mat-datepicker #startDate></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                                <mat-label>Au</mat-label>
+                                <input formControlName="validto" matInput [matDatepicker]="endDate">
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                                <mat-datepicker #endDate></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div style="display: flex; margin-top: 1rem;">
+                            <button (click)="onFilterSubscriptionsWithCriteria()" [disabled]="isFilteringAllSubscriptions" mat-flat-button color="primary">Rechercher</button>
+                            <button mat-stroked-button style="margin-left: 1rem;" (click)="onDownloadReporting()">Tirer le reporting</button>
+                        </div>
+                    </form>
+                </section>
+                <mat-divider vertical="false" class="margin: 0.8rem auto"></mat-divider>
+
+            </div>
+            <div>
+                <section class="section-form-group">
+                    <h2 class="title">Liste des souscriptions</h2>
+                    <button (click)="openNewSubscriptionDialog()" style="align-self: flex-end; " mat-flat-button color="warn">Nouvelle souscription</button>
+                    <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                        <mat-label>Filtrer</mat-label>
+                        <input (keyup)="applySearchFilter($event)" type="text" matInput #filterInput>
+                    </mat-form-field>
+                    <table id="transactions-table" mat-table [dataSource]="dataSource" class="mat-elevation-z0 w-100">
+
+                        <ng-container matColumnDef="clientName">
+                            <th mat-header-cell *matHeaderCellDef> Client </th>
+                            <td mat-cell *matCellDef="let element"> {{element.clientName | emptyOrNullNa}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="customerNamePartner">
+                            <th mat-header-cell *matHeaderCellDef> Nom de l'usager</th>
+                            <td mat-cell *matCellDef="let element"> {{element.customerNamePartner | emptyOrNullNa}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="customerReferencePartner">
+                            <th mat-header-cell *matHeaderCellDef> N° Contribuable / NIU </th>
+                            <td mat-cell *matCellDef="let element"> {{element.customerReferencePartner | emptyOrNullNa}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="validFrom">
+                            <th mat-header-cell *matHeaderCellDef> Date souscription </th>
+                            <td mat-cell *matCellDef="let element"> {{element.validfrom | date | emptyOrNullNa}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="utiunitiate">
+                            <th mat-header-cell *matHeaderCellDef> Uti souscription </th>
+                            <td mat-cell *matCellDef="let element"> {{element.utiunitiate | emptyOrNullNa }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="utivalidate">
+                            <th mat-header-cell *matHeaderCellDef> Uti validation </th>
+                            <td mat-cell *matCellDef="let element"> {{element.utivalidate | emptyOrNullNa}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="datevalidate">
+                            <th mat-header-cell *matHeaderCellDef> Date validation </th>
+                            <td mat-cell *matCellDef="let element"> {{element.datevalidate | date | emptyOrNullNa}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="agenceSous">
+                            <th mat-header-cell *matHeaderCellDef> Agence souscription </th>
+                            <td mat-cell *matCellDef="let element"> {{element.agenceSous | emptyOrNullNa}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="operatorStatus">
+                            <th mat-header-cell *matHeaderCellDef> Status </th>
+                            <td mat-cell *matCellDef="let element"> {{element.operatorStatus}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef> Actions </th>
+                            <td mat-cell *matCellDef="let element">
+                                <div style="display: flex;">
+                                    <button [disabled]="element.operatorStatus == 'ACTIF'" (click)="onValidateSubscription(element)" class="mat-elevation-z0" mat-stroked-button color="primary" aria-label="sidebar-menu__toggler">
+                                        Activer
+                                    </button>
+                                    <button [disabled]="element.operatorStatus == 'CANCEL'" (click)="onCancelSubscription(element)" style="margin-left: 0.5rem;" class="mat-elevation-z0" mat-stroked-button color="warn" aria-label="sidebar-menu__toggler">
+                                        Annuler
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">Aucun resultat correspondant à la recherche : "{{filterInput.value}}"</td>
+                        </tr>
+                    </table>
+
+                    <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+                    </mat-paginator>
+                </section>
+
+            </div>
+        </div>
+    </section>
+</div> -->
+
+<div class="inner-content">
+    <div class="inner--navbar">
+        <h2>Consultation des souscriptions</h2>
+    </div>
+    <div style="padding: 1.2rem 1rem;">
+        <form [formGroup]="filterFormGroup" class="subscription-filter-form">
+            <div class="inputs-group">
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>ID Marchant</mat-label>
+                    <input formControlName="customerReferencePartner" type="text" matInput>
+                </mat-form-field>
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Nom Marchant</mat-label>
+                    <input formControlName="customerNamePartner" type="text" matInput>
+                </mat-form-field>
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Statut</mat-label>
+                    <mat-select formControlName="operatorStatus">
+                        <mat-option [value]="''">{{'TOUS'}}</mat-option>
+                        <mat-option *ngFor="let value of operatorsStatus" [value]="value">{{value}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Du</mat-label>
+                    <input formControlName="validfrom" matInput [matDatepicker]="startDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                    <mat-datepicker #startDate></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Au</mat-label>
+                    <input formControlName="validto" matInput [matDatepicker]="endDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                    <mat-datepicker #endDate></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div style="display: flex; margin-top: 1rem;">
+                <button (click)="onFilterSubscriptionsWithCriteria()" [disabled]="isFilteringAllSubscriptions" mat-flat-button color="primary">Rechercher</button>
+                <button mat-raised-button style="margin-left: 1rem;" (click)="onDownloadReporting()">Tirer le reporting</button>
+            </div>
+        </form>
+        <div style="display: flex; flex-direction:column">
+            <button *ngxPermissionsOnly="['DF_MINTRANS_CREATE_SOUSCRIPTIONS']" (click)="openNewSubscriptionDialog()" style="align-self: flex-end; " mat-flat-button color="warn">Nouvelle souscription</button>
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Filtrer</mat-label>
+                <input (keyup)="applySearchFilter($event)" type="text" matInput #filterInput>
+            </mat-form-field>
+        </div>
+        <section class="datatable-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z0 w-100">
+
+                <ng-container matColumnDef="clientName">
+                    <th mat-header-cell *matHeaderCellDef> Client </th>
+                    <td mat-cell *matCellDef="let element"> {{element.clientName | emptyOrNullNa}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="customerNamePartner">
+                    <th mat-header-cell *matHeaderCellDef> Nom de l'usager</th>
+                    <td mat-cell *matCellDef="let element"> {{element.customerNamePartner | emptyOrNullNa}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="customerReferencePartner">
+                    <th mat-header-cell *matHeaderCellDef> N° Contribuable / NIU </th>
+                    <td mat-cell *matCellDef="let element"> {{element.customerReferencePartner | emptyOrNullNa}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="validFrom">
+                    <th mat-header-cell *matHeaderCellDef> Date souscription </th>
+                    <td mat-cell *matCellDef="let element"> {{element.validfrom | date | emptyOrNullNa}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="utiunitiate">
+                    <th mat-header-cell *matHeaderCellDef> Uti souscription </th>
+                    <td mat-cell *matCellDef="let element"> {{element.utiunitiate | emptyOrNullNa }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="utivalidate">
+                    <th mat-header-cell *matHeaderCellDef> Uti validation </th>
+                    <td mat-cell *matCellDef="let element"> {{element.utivalidate | emptyOrNullNa}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="datevalidate">
+                    <th mat-header-cell *matHeaderCellDef> Date validation </th>
+                    <td mat-cell *matCellDef="let element"> {{element.datevalidate | date | emptyOrNullNa}} </td>
+                </ng-container>
+                <ng-container matColumnDef="agenceSous">
+                    <th mat-header-cell *matHeaderCellDef> Agence souscription </th>
+                    <td mat-cell *matCellDef="let element"> {{element.agenceSous | emptyOrNullNa}} </td>
+                </ng-container>
+                <ng-container matColumnDef="operatorStatus">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.operatorStatus}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Actions </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div style="display: flex;">
+                            <button [disabled]="element.operatorStatus == 'ACTIF'" (click)="onValidateSubscription(element)" class="mat-elevation-z0" mat-stroked-button color="primary" aria-label="sidebar-menu__toggler">
+                                Activer
+                            </button>
+                            <button [disabled]="element.operatorStatus == 'CANCEL'" (click)="onCancelSubscription(element)" style="margin-left: 0.5rem;" class="mat-elevation-z0" mat-stroked-button color="warn" aria-label="sidebar-menu__toggler">
+                                Annuler
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">Aucun resultat correspondant à la recherche : "{{filterInput.value}}"</td>
+                </tr>
+            </table>
+        </section>
+        <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+</div>

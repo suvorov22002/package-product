@@ -1,0 +1,89 @@
+<div style="position: relative">
+    <h3 style="margin-bottom: 1rem">Mise à jour Souscription</h3>
+    <form [formGroup]="formGroup">
+    <!--
+        <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr 1fr; ">
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Agence de souscription</mat-label>
+                <input formControlName="agenceSous" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Initiateur</mat-label>
+                <input formControlName="utiunitiate" type="text" matInput>
+            </mat-form-field>
+
+        </div>
+    
+        <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr 1fr; ">
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Nom du partenaire</mat-label>
+                <input formControlName="partnerName" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Code du partenaire</mat-label>
+                <input formControlName="partnerCode" type="text" matInput>
+            </mat-form-field>
+        </div>
+    -->
+
+        <div style="display: flex; flex-direction: column; margin-bottom: 0.8rem;">
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Code client</mat-label>
+                <input formControlName="codeClient" type="text" [readonly]="true" matInput>
+            </mat-form-field>
+          <!--  <button mat-stroked-button color="primary" (click)="onLoadUserInfo()">Rechercher</button> -->
+        </div>
+        <section class="section-form-group">
+            <h4 class="title">Informations clientes</h4>
+            <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr 1fr; ">
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>N° Contribuable / NUI</mat-label>
+                    <input formControlName="customerReferencePartner" type="text"  [readonly]="true" matInput>
+                </mat-form-field>
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>N° CNI</mat-label>
+                    <input formControlName="cni" type="text" [readonly]="true" matInput>
+                </mat-form-field>
+            </div>
+            <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr; ">
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Nom client</mat-label>
+                    <input formControlName="clientname" type="text" [readonly]="true" matInput>
+                </mat-form-field>
+            </div>
+            <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr; ">
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Email(s)</mat-label>
+                    <mat-select formControlName="emails" multiple>
+                        <mat-option *ngFor="let email of emails$ | async" [value]="email">{{email}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr; ">
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Compte(s)</mat-label>
+                    <mat-select formControlName="txtAccounts" multiple>
+                        <mat-option *ngFor="let account of accounts$ | async" [value]="account">{{account}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr; ">
+                <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                    <mat-label>Téléphone(s)</mat-label>
+                    <mat-select formControlName="txtPhones" multiple>
+                        <mat-option *ngFor="let telephone of phones$ | async" [value]="telephone">{{telephone}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </section>
+
+        <div style="display: flex; justify-content: space-between;">
+            <button mat-flat-button [disabled]="!formGroup.valid" color="primary" (click)="onCreateSubscription()">Valider operation</button>
+            <button mat-stroked-button [mat-dialog-close]="">Quitter</button>
+        </div>
+    </form>
+    <div class="loader-wrapper" *ngIf="isCreatingSubscription">
+        <span class="circle-loader"></span>
+    </div>
+
+</div>

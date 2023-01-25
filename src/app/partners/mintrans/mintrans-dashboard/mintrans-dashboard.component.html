@@ -1,0 +1,70 @@
+<div class="app-scaffold">
+    <mat-drawer-container class="example-container" autosize>
+        <mat-drawer #drawer mode="side" opened="true">
+            <div class="app-side-bar">
+                <header>
+                    <a routerLink="/" style="text-decoration: none;">
+                        <h2 class="app-title" style="font-size: 0.8rem;">DIGITAL FIRST (MINTRANS)</h2>
+                    </a>
+                </header>
+                <ul class="app-nav --vertical" style="overflow-y: auto; overflow-x: none; margin-top: 3rem;">
+                    <li class="item" *ngxPermissionsOnly="['DF_MINTRANS_CASH_IN']">
+                        <a routerLink="/mintrans-dashboard/versements" routerLinkActive="active" class="link">Versements</a>
+                    </li>
+                    <li class="item" *ngxPermissionsOnly="['DF_MINTRANS_TRANSACTIONS']">
+                        <a routerLink="/mintrans-dashboard/transactions" routerLinkActive="active" class="link">Transactions</a>
+                    </li>
+                    <li class="item" *ngxPermissionsOnly="['DF_MINTRANS_SOUSCRIPTIONS']">
+                        <a routerLink="/mintrans-dashboard/souscriptions" routerLinkActive="active" class="link">Souscriptions</a>
+                    </li>
+                    <li class="item" *ngxPermissionsOnly="['DF_MINTRANS_CONFIGS']">
+                        <a routerLink="/mintrans-dashboard/configurations" routerLinkActive="active" class="link">Configurations</a>
+                    </li>
+
+
+                </ul>
+                <footer style="border-top: 1px solid #eee; padding: 1rem; display: flex; flex-direction: column;">
+                    <button (click)="onDisconnect()" mat-stroked-button color="warn">
+                        <a routerLink="/partners-dashboard" routerLinkActive="active" class="menu-item-link">Me déconnecter</a>
+                        </button>
+                </footer>
+            </div>
+        </mat-drawer>
+
+        <div style="height: 100vh; ">
+            <!-- <button type="button" mat-button (click)="drawer.toggle()">
+          Toggle sidenav
+        </button> -->
+            <router-outlet></router-outlet>
+        </div>
+
+    </mat-drawer-container>
+
+</div>
+
+<!-- 
+<section class="partner-dashboard">
+    <aside>
+        <header class="title-header">
+            <a routerLink="/" id="app-title" style="margin-top: 1rem;">Digital <span class="primary-color">First</span></a>
+            <span style="font-size: 0.7rem; margin-top: 0.2rem; opacity: 0.8;">({{partnersService.curPartner.partname}})</span>
+        </header>
+        <ul class="menu-list" style="margin-top: 8rem;">
+            <li class="menu-item">
+                <a routerLink="/mintrans-dashboard/versements" routerLinkActive="active" class="menu-item-link">Versements</a>
+            </li>
+            <li class="menu-item">
+                <a routerLink="/mintrans-dashboard/transactions" routerLinkActive="active" class="menu-item-link">Transactions</a>
+            </li>
+            <li class="menu-item">
+                <a routerLink="/mintrans-dashboard/souscriptions" routerLinkActive="active" class="menu-item-link">Souscriptions</a>
+            </li>
+            <li class="menu-item">
+                <a routerLink="/mintrans-dashboard/configurations" routerLinkActive="active" class="menu-item-link">Configurations</a>
+            </li>
+        </ul>
+    </aside>
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+</section> -->

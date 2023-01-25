@@ -1,0 +1,16 @@
+
+    <pdf-viewer [src]="pdfSrc" 
+              [render-text]="true"
+              [original-size]="false"
+              [autoresize] = "true" 
+              [zoom]="0.9" 
+              style="display: block;"
+              style="width: 50vh; height: 65vh"
+              (after-load-complete)="onLoaded($event)"
+  ></pdf-viewer>
+
+
+<div style="display: flex; justify-content: space-between;">
+    <button  mat-stroked-button (click)="print()" [disabled]="!isPdfLoaded">Print</button>
+    <button mat-stroked-button [mat-dialog-close]>Quitter</button>
+</div>

@@ -1,0 +1,18 @@
+.section-group {
+    width: 95%;
+    background-color: #fff;
+    margin: 1rem auto;
+    &>[role="main"] {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: 1rem;
+    }
+}
+
+form.transaction-filter-form {
+    &>.inputs-group {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.8rem;
+    }
+}

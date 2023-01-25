@@ -1,0 +1,62 @@
+<div style="margin: 0 auto; margin-top: 2rem;">
+    <section id="partners-sec">
+        <h2 class="title">Liste des partenaires</h2>
+        <div class="partners">
+            <button (click)="onCreatePartner()" style="align-self: flex-start; margin-bottom: 0.8rem" class="mat-elevation-z0" mat-raised-button color="primary" aria-label="sidebar-menu__toggler">
+                Créer un partenaire
+            </button>
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Filtrer</mat-label>
+                <input type="text" matInput (keyup)="applySearchFilter($event)" #filterInput>
+            </mat-form-field>
+            <table id="transactions-table" mat-table [dataSource]="dataSource" class="mat-elevation-z0 w-100">
+
+                <ng-container matColumnDef="partname">
+                    <th mat-header-cell *matHeaderCellDef> Nom du partenaire </th>
+                    <td mat-cell *matCellDef="let element"> {{element.partname}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="partcode">
+                    <th mat-header-cell *matHeaderCellDef> Code du partenaire </th>
+                    <td mat-cell *matCellDef="let element"> {{element.partcode}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Actions </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button (click)="onPartnerClicked(element)" class="mat-elevation-z0" mat-stroked-button color="accent" aria-label="sidebar-menu__toggler">
+                            Ouvrir
+                        </button>
+                        <button *ngxPermissionsOnly="['DF_PARTNER_EDIT']" (click)="onEditPartner(element)" class="mat-elevation-z0" mat-stroked-button aria-label="sidebar-menu__toggler">
+                            Modifier
+                        </button>
+                    </td>
+                </ng-container>
+
+
+
+
+
+
+                <!-- <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Actions </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button class="mat-elevation-z0" (click)="print2Pdf(element)" mat-stroked-button color="accent" aria-label="sidebar-menu__toggler">
+                            Imprimer
+                        </button>
+                    </td>
+                </ng-container> -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">Aucun resultat correspondant à la recherche : "{{filterInput.value}}"</td>
+                </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[8, 10, 12]" showFirstLastButtons aria-label="Select page of periodic elements">
+            </mat-paginator>
+        </div>
+
+    </section>
+</div>

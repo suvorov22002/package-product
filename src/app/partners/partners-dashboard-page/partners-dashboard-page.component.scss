@@ -1,0 +1,37 @@
+#partners-sec {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 3rem;
+    .partners {
+        margin-top: 1rem;
+        padding: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        border-radius: 0.4rem;
+        box-shadow: 0 2px 20px rgba($color: #000000, $alpha: 0.05), 0 2px 5px rgba($color: #000000, $alpha: 0.05);
+        .partners-list {
+            margin-top: 1.2rem;
+            max-height: 400px;
+            overflow: auto;
+            .partner-link {
+                display: flex;
+                flex-direction: column;
+                padding: 0.6rem;
+                border: 1px solid #ddd;
+                margin-bottom: 0.6rem;
+                &>.partner-name {
+                    font-size: 0.8rem;
+                }
+                &>.partner-code {
+                    font-size: 0.7rem;
+                    margin-top: 5px;
+                    color: rgb(243, 87, 87);
+                }
+                &:hover {
+                    background-color: #fafafa;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+<div style="position: relative">
+
+    <h3 style="margin-bottom: 1rem">Annulation de la transaction</h3>
+    <form [formGroup]="formGroup">
+        <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr 1fr; ">
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Code du partenaire</mat-label>
+                <input formControlName="partnerCode" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Guichetier</mat-label>
+                <input formControlName="usercancel" type="text" matInput>
+            </mat-form-field>
+        </div>
+        <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr; margin-top: 0.8rem;">
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Raison de l'annulation</mat-label>
+                <textarea sty formControlName="cancelReason" matInput style="resize: none;"></textarea>
+            </mat-form-field>
+        </div>
+
+
+        <div style="display: flex; justify-content: space-between; ">
+            <button (click)="onCancelReason()" mat-stroked-button color="warn">Annuler la transaction</button>
+
+            <button mat-stroked-button [mat-dialog-close]>Quitter</button>
+        </div>
+    </form>
+
+    <div class="loader-wrapper" *ngIf="isProcessing">
+        <span class="circle-loader"></span>
+    </div>
+
+</div>

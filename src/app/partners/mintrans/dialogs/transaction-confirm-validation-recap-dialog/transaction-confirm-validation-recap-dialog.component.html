@@ -1,0 +1,65 @@
+<h3 style="margin-bottom: 1rem">Recapitulatif de la transaction</h3>
+<section id="event-code">
+    <div>
+        <span>Code Evènement</span>
+        <span>{{transaction.eveid}}</span>
+    </div>
+</section>
+<div class="recap-container">
+    <div class="recap-item">
+        <span class="key">Statut de la transaction</span>
+        <span>:</span>
+        <span class="value">{{transaction.statusTrans}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Date de transaction</span>
+        <span>:</span>
+        <span class="value">{{transaction.validfrom | date}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Agence</span>
+        <span>:</span>
+        <span class="value">{{transaction.ageCaisse}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Caissière</span>
+        <span>:</span>
+        <span class="value">{{transaction.userCaisse}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Code partenaire</span>
+        <span>:</span>
+        <span class="value">{{transaction.partnerCode}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Nom opérateur</span>
+        <span>:</span>
+        <span class="value">{{transaction.nomOperator}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Ref opérateur</span>
+        <span>:</span>
+        <span class="value">{{transaction.referenceOperator}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Partie versante</span>
+        <span>:</span>
+        <span class="value">{{transaction.partieVersante}}</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Montant à payer</span>
+        <span>:</span>
+        <span class="value">{{transaction.amount! | moneyFormat}} FCFA</span>
+    </div>
+    <div class="recap-item">
+        <span class="key">Montant reçu</span>
+        <span>:</span>
+        <span class="value">{{transaction.amountReceived! | moneyFormat}} FCFA</span>
+    </div>
+
+</div>
+
+<div style="display: flex; justify-content: space-between;">
+    <button [mat-dialog-close] (click)="onAction()" mat-flat-button color="warn">Confirmer</button>
+    <button mat-stroked-button [mat-dialog-close]>Quitter</button>
+</div>

@@ -1,0 +1,40 @@
+<div style="position: relative">
+
+    <h3 style="margin-bottom: 1rem"> {{isEditing ? 'Mettre à jour de la' : 'Créer une nouvelle'}} catégorie</h3>
+    <form [formGroup]="formGroup">
+        <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr 1fr; ">
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Code</mat-label>
+                <input formControlName="code" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Libellé</mat-label>
+                <input formControlName="libelle" type="text" matInput>
+            </mat-form-field>
+        </div>
+
+        <div style="display: grid; gap: 0.7rem; grid-template-columns: 1fr; margin-top: 0.8rem;">
+            <mat-form-field appearance="fill" [style.fontSize.px]="12" [style.width.%]="100">
+                <mat-label>Type de redevance</mat-label>
+                <mat-select formControlName="typeForfait">
+                    <mat-option *ngFor="let item of typeForfaits" [value]="item.code">
+                        {{item.libelle | removeUnderscore}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+
+        <div style="display: flex; justify-content: space-between; ">
+            <button *ngIf="!isEditing" (click)="onCreateTypeOfFeesClass()" mat-flat-button color="primary">Créer</button>
+            <button *ngIf="isEditing" (click)="onEditTypeOfFeesClass()" mat-flat-button color="primary">Mise à jour</button>
+            <button mat-stroked-button [mat-dialog-close]>Quitter</button>
+        </div>
+    </form>
+
+    <div class="loader-wrapper" *ngIf="isProcessing">
+        <span class="circle-loader"></span>
+    </div>
+
+</div>
